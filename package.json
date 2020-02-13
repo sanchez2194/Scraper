@@ -1,0 +1,30 @@
+{
+  "name": "Scraper",
+  "version": "1.0.0",
+  "description": "web app that lets users view and leave comments on the latest news.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanchez2194/Scraper.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanchez2194/Scraper/issues"
+  },
+  "homepage": "https://github.com/sanchez2194/Scraper#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "mongoose": "^5.8.11",
+    "morgan": "^1.9.1"
+  }
+}
