@@ -8,19 +8,16 @@ var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
 
-
-var db = require("./public/models");
-
+var db = require("./models");
 
 var PORT = process.env.PORT || 3000;
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraper";
+var MONGODB_URI = process.env.MONGODB_URI ||"mongodb://localhost/scraper";
+
 
 console.log("Using database " + MONGODB_URI);
 
-
 var app = express();
-
 
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,20 +25,15 @@ app.use(express.static("public"));
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+	useMongoClient: true
 });
-
 
 app.get("/clean", function(req, res){
-	
 			res.send("Database updated.");
-	
 });
 
-
 app.get("/scrape", function(req, res){
-	
+	console.log('WE HIT THE /Scrape ++++++++');
 	axios.get("https://fastcompany.com/").then(function(response){
 		var $ = cheerio.load(response.data);
 
@@ -52,19 +44,19 @@ app.get("/scrape", function(req, res){
 				.children("a")
 				.attr("title");
 
-			ArticleLink = $(this)
+			articleLink = $(this)
 				.children("a")
 				.attr("href");
 
-			if (ArticleLink.charAt(0) === "/") {
-				ArticleLink = "https://www.fastcompany.com" + ArticleLink;
-				result.link = ArticleLink;
+			if (articleLink.charAt(0) === "/") {
+				articleLink = "https://www.fastcompany.com" + articleLink;
+				result.link = articleLink;
 			}
 			else {
-				result.link = ArticleLink;
+				result.link = articleLink;
 			}
 
-			
+
 			
 
 			db.Article
@@ -72,10 +64,9 @@ app.get("/scrape", function(req, res){
 			.limit(1)
 			.then(function(check){
 
-				console.log('this is our check -', check);
-				console.log('this is our result.title -', result.title);
+				console.log('this is our check -----', check);
+				console.log('this is our result.title ----', result.title);
 
-				
 			});
 		});
 		res.send("Scrape Complete");

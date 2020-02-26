@@ -26,6 +26,7 @@ $("#get-articles").click(function(){
 					);
 
 					if (data[i].saved) {
+						// disable the save button
 						var articleSelector = ".save-article[data-id='" + data[i]._id + "']";
 						$(articleSelector).attr("disabled", "disabled");
 						$(articleSelector).text("Saved");
@@ -37,6 +38,7 @@ $("#get-articles").click(function(){
 });
 
 $(document).on("click", ".save-article", function(){
+	// grab the id associated with the article
 	var thisId = $(this).attr("data-id");
 	console.log(thisId);
 
